@@ -6,26 +6,27 @@ def generate_launch_description():
     hostname = '10.42.0.130'
     buffer_size = 1024
     topic_namespace = 'vicon'
+    simulation = False
+    if simulation:
+        fake_vicon_position_node = Node(
+                package="vicon_position_bridge",
+                executable = "fake_pose_pub",
+            )
+        ld.add_action(fake_vicon_position_node)
+    else:
+        vicon_wrapper_node = Node(
+                package='vicon_receiver', executable='vicon_client', output='screen',
+                parameters=[{'hostname': hostname, 'buffer_size': buffer_size, 'namespace': topic_namespace}]
+            )
+        ld.add_action(vicon_wrapper_node)
 
-    vicon_wrapper_node = Node(
-            package='vicon_receiver', executable='vicon_client', output='screen',
-            parameters=[{'hostname': hostname, 'buffer_size': buffer_size, 'namespace': topic_namespace}]
+        pose_pub = Node(
+                package = "vicon_position_bridge",
+                executable = "pose_pub"
         )
-    ld.add_action(vicon_wrapper_node)
 
-    pose_pub = Node(
-        package = "vicon_position_bridge",
-        executable = "pose_pub"
-    )
-
-    ld.add_action(pose_pub)
+        ld.add_action(pose_pub)
     
-    # fake_vicon_position_node = Node(
-    #     package="vicon_position_bridge",
-    #     executable = "fake_pose_pub",
-    # )
-    # ld.add_action(fake_vicon_position_node)
-
     # pose_data_save = Node(
     #     package = "vicon_position_bridge",
     #     executable = "pose_data_save"
