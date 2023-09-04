@@ -54,10 +54,11 @@ https://docs.qgroundcontrol.com/master/en/getting_started/download_and_install.h
 
 **ROS2 nodes for processing vicon position:**
 ```
-git clone https://github.com/OPT4SMART/ros2-vicon-receiver/tree/master
+git clone https://github.com/OPT4SMART/ros2-vicon-receiver
 ```    
 **ROS2 msg for PX4 MicroRTPS UorB Topics:**  follow instructions on website below 
 https://docs.px4.io/v1.13/en/ros/ros2_comm.html
+
 **ROS2 package for building PX4 controller firmware/simulations:**
 ```
 git clone https://github.com/PX4/PX4-Autopilot.git --recursive
